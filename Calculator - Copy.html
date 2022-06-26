@@ -1,0 +1,97 @@
+<!-- 
+	Author: Coleman Alexander
+	Date: 6/19/2022
+	File: calculator.html
+-->
+<HTML>
+	<head>
+		<title>Calendar assignment</title>
+		<script src="Calculator_defer.js" defer></script>
+		<link rel="stylesheet" href="Calculator.css">
+	</head>
+	<body>
+		<div>
+			<table>
+				<tr class="answerBar">
+					<th colspan="4" id="answerBar"></th>
+				</tr>
+				<tr class="inputBar">
+					<th  colspan="4" id="inputBar"></th>
+				</tr>
+				<tr>
+					<th colspan="4" id="gap"></th>
+				</tr>
+				<tr>
+					<td class="utility">
+						<button onclick="addParentheses('left')" id="(">(</button>
+					</td>
+					<td class="utility">
+						<button onclick="addParentheses('right')" id=")">)</button>
+					</td>
+					<td class="utility">
+						<button onclick="clearText()" id="C">C</button>
+					</td>
+					<td onclick="pressOperator('/')" class="operator">
+						<button id="/">&divide</button>
+					</td>				
+				</tr>
+				<tr>
+					<td>
+						<button onclick="pressNum(7)"id="7">7</button>
+					</td>
+					<td>
+						<button onclick="pressNum(8)" id="8">8</button>
+					</td>
+					<td>
+						<button onclick="pressNum(9)" id="9" >9</button>
+					</td>
+					<td class="operator">
+						<button onclick="pressOperator('*')" id="x">x</button>
+					</td>				
+				</tr>
+				<tr>
+					<td>
+						<button onclick="pressNum(4)" id="4">4</button>
+					</td>
+					<td>
+						<button onclick="pressNum(5)" id="5">5</button>
+					</td>
+					<td>
+						<button onclick="pressNum(6)" id="6">6</button>
+					</td>
+					<td class="operator">
+						<button onclick="pressOperator('-')" id="-">-</button>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<button onclick="pressNum(1)" id="1">1</button>
+					</td>
+					<td>
+						<button onclick="pressNum(2)" id="2">2</button>
+					</td>
+					<td>
+						<button onclick="pressNum(3)" id="3">3</button>
+					</td>
+					<td class="operator">
+						<button onclick="pressOperator('+')" id="+">+</button>
+					</td>			
+				</tr>
+				<tr>
+					<td class="utility">
+						<button onclick="negateAnswer()" id="(-)">(-)</button>
+					</td>
+					<td>
+						<button  onclick="pressNum(0)" id="0">0</button>
+					</td>
+					<td class="utility">
+						<button onclick="addDecimal('.')" id=".">.</button>
+					</td>
+					<td class="equal">
+						<button onclick="executeEquation()" id="=">=</button>
+					</td>			
+				</tr>
+			</table>	
+		</div>
+	</body>
+</HTML>

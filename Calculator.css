@@ -1,0 +1,112 @@
+/*
+	Author: Coleman Alexander
+	Date: 6/19/2022
+	File: calculator.css
+*/
+
+
+
+
+/************************************************* TABLE*/
+table {
+	height:700px;
+	width: 325px;
+	border-collapse: separate;
+	margin-bottom: -25px;
+}
+div {
+	height: 750px;
+	width: 400px;
+	background-color: rgb(83, 132, 136);
+	display: grid;
+	align-content: center;
+	justify-content: center;
+	border-radius: 60px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border: 1px solid black;
+	margin: auto;
+}
+th {
+	border: 2px solid black;
+	padding: 0px;
+	background-color: white;
+}
+tr.answerBar {
+	font-size: 21px;
+}
+th#answerBar{
+	height: 60px;
+	border-spacing: 0px;
+	text-align: right;
+	padding-right: 2px;
+}
+tr.inputBar {
+	height: 75px;
+	font-family: cursive;
+	font-size: 30px;
+}
+#inputBar {
+}
+/*************************************************CELLS*/
+tr {
+
+}
+td {
+	border: 1px solid black;
+	border-collapse: separate;
+	border-radius: 200px;
+	text-align: center;
+	height: 10%;
+	width: 25%;
+	background-color: rgb(47, 160, 200);
+	box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.2), 0 5px 19px 0 rgba(0, 0, 0, 0.19);
+}
+td:hover {
+	background-color: rgb(68, 181, 221);
+}
+td button {
+	font-family: math;
+	font-size: 44px;
+	background-color: rgb(0,0,0,0);
+	border: none;
+	height: 100%;
+	width: 100%;
+}
+td:active {
+	box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 14px 0 rgba(0, 0, 0, 0.19);
+	filter: brightness(93%);
+}
+.operator, .utility {
+	background-color: rgb(233,68,79);
+}
+.operator:hover, .utility:hover{
+	background-color: rgb(253,88,99);
+}
+.operator button:hover, .utility button:hover, td button:hover {
+	color: rgb(230,230,230);
+}
+.equal {
+	background-color: black;
+
+}
+.equal button {
+	color: white;
+}
+.equal button:hover {
+	color: black;
+}
+.equal:hover {
+	background-color: white;
+}
+#mem {
+	font-size: 27px;
+}
+/*************************************************
+/*************************************************
+/*************************************************
+/*************************************************GAP*/
+th#gap {
+	background-color: rgb(0,0,0,0);
+	border:none;
+	height: 30px;
+}
