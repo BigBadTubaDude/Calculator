@@ -14,7 +14,7 @@ const DIVIDE_BY_ZERO_ERROR = "Error: Division By Zero </br> Add, Backspace, or C
 const PI = 3.141592653589793
 
 function negateAnswer() {
-	if (document.getElementById("answerBar").innerHTML != "" && answer != DIVIDE_BY_ZERO_ERROR) { // If there is an answer in the answerBar, negate multiplies answer by -1
+	if (document.getElementById("answerBar").innerHTML != "" && answerNum != DIVIDE_BY_ZERO_ERROR) { // If there is an answer in the answerBar, negate multiplies answer by -1
 		answerNum *= -1;
 		document.getElementById("answerBar").innerHTML = answerNum;
 	}
@@ -89,7 +89,7 @@ function pressNum(num) {
 					inputText += PI;
 				}
 			}
-			else if (num != "pi") {	
+			else if (num != "pi" && inputText.substr(inputText.length - 17, 17) != PI) {	
 				inputText += String(num);
 			}
 			document.getElementById("inputBar").innerHTML = convertToPresentable(inputText);
@@ -160,7 +160,10 @@ function backspace() {
 	if (inputText.substr( inputText.length - 2, 2) == "**") {
 		inputText = inputText.slice(0, -2);	
 	}
-	else if (inputText.substr(inputText.length - 17, inputText.length) == PI) {
+	else if (inputText.substr(inputText.length - 18, 18) == "*" + PI) {
+		inputText = inputText.slice(0, -18);
+	}
+	else if (inputText.substr(inputText.length - 17, 17) == PI) {
 		inputText = inputText.slice(0, -17);
 	}
 	else {
