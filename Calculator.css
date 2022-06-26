@@ -9,14 +9,14 @@
 
 /************************************************* TABLE*/
 table {
-	height:700px;
-	width: 325px;
+	height:875px;
+	width: 406px;
 	border-collapse: separate;
 	margin-bottom: -25px;
 }
 div {
-	height: 750px;
-	width: 400px;
+	height: 938px;
+	width: 500px;
 	background-color: rgb(83, 132, 136);
 	display: grid;
 	align-content: center;
@@ -32,7 +32,7 @@ th {
 	background-color: white;
 }
 tr.answerBar {
-	font-size: 21px;
+	font-size: 22px;
 }
 th#answerBar{
 	height: 60px;
@@ -41,11 +41,14 @@ th#answerBar{
 	padding-right: 2px;
 }
 tr.inputBar {
-	height: 75px;
 	font-family: cursive;
-	font-size: 30px;
+	font-size: 27px;
+	resize: none;
 }
 #inputBar {
+	height: 80px;
+	resize: none;
+	overflow-x: auto;
 }
 /*************************************************CELLS*/
 tr {
