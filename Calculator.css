@@ -9,14 +9,14 @@
 
 /************************************************* TABLE*/
 table {
-	height:875px;
-	width: 406px;
+	height:820px;
+	width: 385px;
 	border-collapse: separate;
 	margin-bottom: -25px;
 }
 div {
-	height: 938px;
-	width: 500px;
+	height: 880px;
+	width: 450px;
 	background-color: rgb(83, 132, 136);
 	display: grid;
 	align-content: center;
