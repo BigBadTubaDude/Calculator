@@ -5,7 +5,7 @@
 */
 const OPERATORS = ["*", "/", "+", "-", "**"];
 let inputText = "";
-let presentText = inputText;
+let presentText = inputText; //The extra step of holding in presentText allows help with troubleshooting and the spaces allow decimal point entry validation
 let haveEvaluated = false; // boolean changes presentation of text when an answer is in the answer box
 let answerNum = "";
 let memoryResult = "";
@@ -42,9 +42,10 @@ function negateAnswer() {
 		answerNum *= -1;
 		document.getElementById("answerBar").innerHTML = answerNum;
 	}
-	else if (OPERATORS.includes(inputText[inputText.length - 1]) || inputText === "" || inputText[inputText.length - 1] == "("){ //If no answer is in answerBar, last enter was an operator or a left parentheses negate adds negative sign to next number
+	else if ((OPERATORS.includes(inputText[inputText.length - 1]) || inputText === "" || inputText[inputText.length - 1] == "(") && inputText[inputText.length - 1] != "-"){ //If no answer is in answerBar, last enter was an operator or a left parentheses negate adds negative sign to next number
 		inputText += " -";
-		document.getElementById("inputBar").innerHTML = convertToPresentable(inputText);
+		presentText = convertToPresentable(inputText);
+		document.getElementById("inputBar").innerHTML = presentText;
 	}
 }
 function clearAnswer() {
@@ -70,6 +71,9 @@ function convertToPresentable(givenText) { // This takes the held string capaabl
 		else if (givenText.substr(i, 2) === "**") {
 			newText += " ^ ";
 			givenText = givenText.substring(0, i + 1) + givenText.substring(i + 2, givenText.length); //removes following * so it is not evaluated as a multiply in next loop
+		}
+		else if (givenText.substr(i - 1, 2) == " -") { // differentiates between minus and negative. only adds space before "-"
+			newText += " -"
 		}
 		else if (givenText[i] === "*"){
 			if (givenText.substr(i, 18) == "*" + PI) { //Allows user to enter pi as a variable, such as 9π - 3
@@ -116,13 +120,15 @@ function pressNum(num) {
 			else if (num != "pi" && inputText.substr(inputText.length - 17, 17) != PI) {	
 				inputText += String(num);
 			}
-			document.getElementById("inputBar").innerHTML = convertToPresentable(inputText);
+		presentText = convertToPresentable(inputText);
+		document.getElementById("inputBar").innerHTML = presentText;
 		}
 }
 function addDecimal(dec) {
 	if (!isNaN(inputText[inputText.length - 1]) && ((presentText.lastIndexOf(".") <= presentText.lastIndexOf(" ")) || !inputText.includes("."))) { // allows decimal point only under these circumstances
 		inputText += String(dec);
-		document.getElementById("inputBar").innerHTML = convertToPresentable(inputText);
+		presentText = convertToPresentable(inputText);
+		document.getElementById("inputBar").innerHTML = presentText;
 	}
 }
 
@@ -135,7 +141,8 @@ function pressOperator(operator) {
 	}
 	if ( !OPERATORS.includes(inputText[inputText.length - 1]) && inputText[inputText.length - 1] != "." && typeof parseInt(inputText[inputText.length - 1]) === "number" && inputText[inputText.length - 1] != "(" && inputText != "" || inputText[inputText.length - 1] === ")" ) { //only allows operator to be added to string if last input was a number
 		inputText += operator;
-		document.getElementById("inputBar").innerHTML = convertToPresentable(inputText);
+		presentText = convertToPresentable(inputText);
+		document.getElementById("inputBar").innerHTML = presentText;
 	}
 }
 function executeEquation() {
@@ -171,11 +178,13 @@ function addParentheses(direction) {
 		}
 	if (direction === "left" && (inputText === "" || inputText[inputText.length - 1] == "(" || OPERATORS.includes(inputText[inputText.length - 1]))) {
 		inputText += "(";
-		document.getElementById("inputBar").innerHTML = convertToPresentable(inputText);
+		presentText = convertToPresentable(inputText);
+		document.getElementById("inputBar").innerHTML = presentText;
 		}
 	else if (direction === "right" && (!isNaN(inputText[inputText.length - 1]) || inputText[inputText.length - 1] === ")") && leftCount > rightCount){
 		inputText += ")";
-		document.getElementById("inputBar").innerHTML = convertToPresentable(inputText);
+		presentText = convertToPresentable(inputText);
+		document.getElementById("inputBar").innerHTML = presentText;
 		}
 	}
 
@@ -190,7 +199,8 @@ function displayMemory() {
 		else {
 			inputText += memoryResult;
 			}
-		document.getElementById("inputBar").innerHTML = convertToPresentable(inputText)
+		presentText = convertToPresentable(inputText);
+		document.getElementById("inputBar").innerHTML = presentText;
 		memoryResult = "";
 	}
 }
@@ -207,6 +217,7 @@ function backspace() {
 	else {
 		inputText = inputText.slice(0, -1);
 	}
-	document.getElementById("inputBar").innerHTML = convertToPresentable(inputText);
+	presentText = convertToPresentable(inputText);
+	document.getElementById("inputBar").innerHTML = presentText;
 	isEditing = true;
 }
