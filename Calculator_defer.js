@@ -182,10 +182,14 @@ function addParentheses(direction) {
 function displayMemory() {
 	if (memoryResult == ""){
 		memoryResult = document.getElementById("answerBar").innerHTML;
-		haveEvaluated = true;
 	}
 	else {
-		inputText += memoryResult;
+		if (memoryResult[0] == "-") { // If memory is negative, adds space so eval() knows its a negative sign and not an operator (eg. 9- -5 as opposed to 9--5)
+			inputText += " " + memoryResult;
+			}
+		else {
+			inputText += memoryResult;
+			}
 		document.getElementById("inputBar").innerHTML = convertToPresentable(inputText)
 		memoryResult = "";
 	}
