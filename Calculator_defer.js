@@ -130,6 +130,9 @@ function addDecimal(dec) {
 			inputText += String(dec);
 			presentText = convertToPresentable(inputText);
 			document.getElementById("inputBar").innerHTML = presentText;
+			if (answerNum != "") { // If the ?=? button has been pressed and a decimal is added to the last number in the existing equation, isEditing is made true so clearText() is not called when a number is press afterward
+				isEditing = true;
+				}
 			}
 		else if (OPERATORS.includes(inputText[inputText.length - 1]) || inputText[inputText.length - 1] == "(" || inputText == "") { // If last character in inputText is "(", an operator, or if InputText is empty, "0." will be added to inputText
 			inputText += "0.";
