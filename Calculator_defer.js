@@ -8,11 +8,35 @@ let inputText = "";
 let presentText = inputText;
 let haveEvaluated = false; // boolean changes presentation of text when an answer is in the answer box
 let answerNum = "";
-let memoryResult;
+let memoryResult = "";
 let isEditing = false; //boolean for if backspace has been used. Determines if user wants text cleared in certain situations or wants to be able to edit current string(entering new number after equation)
 const DIVIDE_BY_ZERO_ERROR = "Error: Division By Zero </br> Add, Backspace, or Clear text"
+const OVERFLOW_ERROR = "Error: Overflow </br> Add, Backspace, or Clear text"
 const PI = 3.141592653589793
 
+function DivideZeroCheck() {
+	var zeroString = false; // Is made true when loop is testing if a string of zeros is equal to zero
+	if (inputText.indexOf("/") > 0) {
+		for (var i = 0; i < inputText.length; i++) {
+				if (inputText[i] == "/" && inputText[i + 1] == "0"){ // Finds any division sign followed by a zero
+					zeroString = true;
+					for (var x = i + 2; x < inputText.length; x++) { // Tests from the first index after the first zero for non zero numbers before an operator
+						if (inputText[x] == ".") {
+							continue;
+						}
+						if (OPERATORS.includes(inputText[x])) {
+							zeroString = true;
+							break;
+							}
+						else if (inputText[x] != "0") {
+							zeroString = false;
+							}
+						}
+					}	
+				}
+			}
+	return zeroString;
+	}
 function negateAnswer() {
 	if (document.getElementById("answerBar").innerHTML != "" && answerNum != DIVIDE_BY_ZERO_ERROR) { // If there is an answer in the answerBar, negate multiplies answer by -1
 		answerNum *= -1;
@@ -23,17 +47,17 @@ function negateAnswer() {
 		document.getElementById("inputBar").innerHTML = convertToPresentable(inputText);
 	}
 }
-function clearText() {
+function clearAnswer() {
 	document.getElementById("answerBar").innerHTML = "";
+	answerNum = ""
+	isEditing = false;
+}
+function clearText() {
+	clearAnswer();
 	document.getElementById("inputBar").innerHTML = "";
 	inputText = "";
 	answerNum = "";
 	haveEvaluated = false;
-	isEditing = false;
-}
-function clearAnswer() {
-	document.getElementById("answerBar").innerHTML = "";
-	answerNum = ""
 	isEditing = false;
 }
 function convertToPresentable(givenText) { // This takes the held string capaable of math and changes the / to a division sign for presentation on the calulator
@@ -43,7 +67,7 @@ function convertToPresentable(givenText) { // This takes the held string capaabl
 		if (givenText[i] === "/") {
 			newText += " " + "&divide;" + " ";
 			}
-		else if (givenText[i] + givenText[i + 1] === "**") {
+		else if (givenText.substr(i, 2) === "**") {
 			newText += " ^ ";
 			givenText = givenText.substring(0, i + 1) + givenText.substring(i + 2, givenText.length); //removes following * so it is not evaluated as a multiply in next loop
 		}
@@ -117,8 +141,11 @@ function pressOperator(operator) {
 function executeEquation() {
 	if ((!isNaN(inputText[inputText.length - 1])) || inputText[inputText.length - 1] === ")" ) { //only allows equation to be calculated if last character is a number
 		answerNum = eval(inputText);
-		if (answerNum === Infinity || answerNum === -Infinity) {
-			answerNum = DIVIDE_BY_ZERO_ERROR
+		if (DivideZeroCheck()) {
+			answerNum = DIVIDE_BY_ZERO_ERROR;
+		}
+		else if (answerNum === Infinity || answerNum === -Infinity) {
+			answerNum = OVERFLOW_ERROR;
 		}
 		//if (String(answerNum).length > 8) {
 		//	answerNum = answerNum.toExponential(3);
@@ -153,14 +180,21 @@ function addParentheses(direction) {
 	}
 
 function displayMemory() {
-	document.getElementById("answerBar").innerHTML = answerNum;
-	haveEvaluated = true;
+	if (memoryResult == ""){
+		memoryResult = document.getElementById("answerBar").innerHTML;
+		haveEvaluated = true;
+	}
+	else {
+		inputText += memoryResult;
+		document.getElementById("inputBar").innerHTML = convertToPresentable(inputText)
+		memoryResult = "";
+	}
 }
 function backspace() {
-	if (inputText.substr( inputText.length - 2, 2) == "**") {
+	if (inputText.substr( inputText.length - 2, 2) == "**" || inputText.substr(inputText.length - 2, 2) == " -") { //If last entry was ^ or a negation of the next number, 2 characters are deleted
 		inputText = inputText.slice(0, -2);	
 	}
-	else if (inputText.substr(inputText.length - 18, 18) == "*" + PI) {
+	else if (inputText.substr(inputText.length - 18, 18) == "*" + PI) { //If last entry was a condensed pi (eg. 9π), both pi and the * sign is deleted
 		inputText = inputText.slice(0, -18);
 	}
 	else if (inputText.substr(inputText.length - 17, 17) == PI) {
