@@ -125,10 +125,17 @@ function pressNum(num) {
 		}
 }
 function addDecimal(dec) {
-	if (!isNaN(inputText[inputText.length - 1]) && ((presentText.lastIndexOf(".") <= presentText.lastIndexOf(" ")) || !inputText.includes("."))) { // allows decimal point only under these circumstances
-		inputText += String(dec);
-		presentText = convertToPresentable(inputText);
-		document.getElementById("inputBar").innerHTML = presentText;
+	if ((presentText.lastIndexOf(".") <= presentText.lastIndexOf(" ")) || !inputText.includes(".")) { // allows decimal point only under these circumstances
+		if (!isNaN(inputText[inputText.length - 1])) {
+			inputText += String(dec);
+			presentText = convertToPresentable(inputText);
+			document.getElementById("inputBar").innerHTML = presentText;
+			}
+		else if (OPERATORS.includes(inputText[inputText.length - 1]) || inputText[inputText.length - 1] == "(" || inputText == "") { // If last character in inputText is "(", an operator, or if InputText is empty, "0." will be added to inputText
+			inputText += "0.";
+			presentText = convertToPresentable(inputText);
+			document.getElementById("inputBar").innerHTML = presentText;
+		}
 	}
 }
 
