@@ -42,7 +42,7 @@ function negateAnswer() {
 		answerNum *= -1;
 		document.getElementById("answerBar").innerHTML = answerNum;
 	}
-	else if ((OPERATORS.includes(inputText[inputText.length - 1]) || inputText === "" || inputText[inputText.length - 1] == "(") && inputText[inputText.length - 1] != "-"){ //If no answer is in answerBar, last enter was an operator or a left parentheses negate adds negative sign to next number
+	else if ((OPERATORS.includes(inputText[inputText.length - 1]) || inputText === "" || inputText[inputText.length - 1] == "(") && inputText.substr(inputText.length - 2, 2) != " -"){ //If no answer is in answerBar, last enter was an operator or a left parentheses negate adds negative sign to next number
 		inputText += " -";
 		presentText = convertToPresentable(inputText);
 		document.getElementById("inputBar").innerHTML = presentText;
