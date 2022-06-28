@@ -42,7 +42,7 @@ function negateAnswer() {
 		answerNum *= -1;
 		document.getElementById("answerBar").innerHTML = answerNum;
 	}
-	else if ((OPERATORS.includes(inputText[inputText.length - 1]) || inputText === "" || inputText[inputText.length - 1] == "(") && inputText.substr(inputText.length - 2, 2) != " -"){ //If no answer is in answerBar, last enter was an operator or a left parentheses negate adds negative sign to next number
+	else if ((OPERATORS.includes(inputText[inputText.length - 1]) || inputText === "" || inputText[inputText.length - 1] == "(") && (inputText.substr(inputText.length - 2, 2) != " -" || inputText.substr(inputText.length - 2, 2) == " -")) { //If no answer is in answerBar, last enter was an operator or a left parentheses negate adds negative sign to next number
 		inputText += " -";
 		presentText = convertToPresentable(inputText);
 		document.getElementById("inputBar").innerHTML = presentText;
@@ -92,8 +92,14 @@ function convertToPresentable(givenText) { // This takes the held string capaabl
 			newText += "&pi;";
 			i += 16; // skips rest of pi literal
 		}
-		else if (givenText[i] === "(") {
-			newText += "(";
+		else if (givenText[i] === "(") { // Deletes space between "(" and negative sign to make more visually appealing
+			if (givenText.substr(i, 3) == "( -") { 
+				newText += "(-";
+				i += 2;
+				}
+			else {
+				newText += "(";
+				}
 		}
 		else if (givenText[i] === ")") {
 			newText += ")";
